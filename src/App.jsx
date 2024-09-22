@@ -1,23 +1,21 @@
 import { useEffect } from "react";
-import { useCheckUserQuery } from "./redux/api/authApi";
+import { useCheckUserQueryQuery } from "./redux/api/authApi";
 import RouteController from "./routes";
 import { useNavigate } from "react-router-dom";
 
-const App = () => {
-  const navigate = useNavigate();
-  const { data, isSuccess } = useCheckUserQuery();
-
+function App() {
+  const navigete = useNavigate();
+  const { isSuccess } = useCheckUserQueryQuery();
   useEffect(() => {
     if (!isSuccess) {
-      navigate("/auth/sign-in");
+      navigete("/auth/sign-in");
     }
-  }, [isSuccess, navigate]);
-
+  }, [isSuccess]);
   return (
     <>
       <RouteController />
     </>
   );
-};
+}
 
 export default App;

@@ -1,12 +1,13 @@
 import React, { lazy } from "react";
 import { useRoutes } from "react-router-dom";
-import Suspense from "../utils";
+import Suspense from "../utils/index";
 
 const Home = lazy(() => import("./home/Home"));
 const Auth = lazy(() => import("./auth/Auth"));
-const Otp = lazy(() => import("./auth/otp/Otp"));
-const Signup = lazy(() => import("./auth/sign-up/SignUp"));
-const Signin = lazy(() => import("./auth/sign-in/Signin"));
+const Otp = lazy(() => import("./auth/otp/otp"));
+const Signup = lazy(() => import("./auth/sign-up/signUp"));
+const Signin = lazy(() => import("./auth/sign-in/signIn"));
+
 const RouteController = () => {
   return useRoutes([
     {

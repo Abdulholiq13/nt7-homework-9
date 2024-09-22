@@ -4,27 +4,22 @@ import { useSignUpRequestMutation } from "../../../redux/api/authApi";
 import { useEffect } from "react";
 
 const { Title, Text } = Typography;
-
 const SignUp = () => {
-  const navigate = useNavigate(); // Corrected from "navigete"
+  const navigate = useNavigate();
   const [signUpRequest, { data, isSuccess }] = useSignUpRequestMutation();
-
   const onFinish = (values) => {
     signUpRequest(values);
   };
-
   console.log(data);
-
   useEffect(() => {
-    if (isSuccess && data?.payload?.email) {
+    if (isSuccess && data.payload?.email) {
       navigate(`/auth/otp?email=${btoa(data.payload.email)}`);
     }
-  }, [isSuccess, data]);
+  }, [isSuccess]);
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-
   return (
     <div>
       <Form
@@ -38,20 +33,18 @@ const SignUp = () => {
         autoComplete="off"
       >
         <Title level={1}>Sign Up</Title>
-
         <Form.Item
           label="Firstname"
           name="first_name"
           rules={[
             {
               required: true,
-              message: "Please input your first name!",
+              message: "Please input your first_name!",
             },
           ]}
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           label="Email"
           name="email"
@@ -83,9 +76,8 @@ const SignUp = () => {
             Sign Up
           </Button>
         </Form.Item>
-
         <Text>
-          Already have an account? <Link to="/auth/sign-in">Sign In</Link> {/* Corrected "Sign Ip" to "Sign In" */}
+          Already have an account? <Link to="/auth/sign-in">Sign Ip</Link>
         </Text>
       </Form>
     </div>

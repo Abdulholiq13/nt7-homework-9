@@ -31,7 +31,6 @@ const Otp = () => {
       <Title level={1}>Verify your code</Title>
 
       <div className="flex items-center justify-center">
-        {" "}
         <Input.OTP length={6} onChange={(text) => setOtp(text)} />
       </div>
 

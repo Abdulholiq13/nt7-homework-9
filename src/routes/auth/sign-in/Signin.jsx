@@ -3,33 +3,30 @@ import { Button, Form, Input, Typography } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useSingInRequestMutation } from "../../../redux/api/authApi";
 import { useDispatch } from "react-redux";
-import { signIn } from "../../../redux/slices/authSlice";
+import { sigIn } from "../../../redux/slices/authSlice";
 
 const { Title, Text } = Typography;
-
 const Signin = () => {
   const [singInRequest, { data, isSuccess }] = useSingInRequestMutation();
   const dispatch = useDispatch();
 
-  const navigate = useNavigate(); // Corrected from "navigete"
-
+  const navigete = useNavigate();
   const onFinish = (values) => {
     singInRequest(values);
   };
-
   useEffect(() => {
     if (isSuccess) {
-      dispatch(signIn(data?.payload.accessToken)); // Corrected from "sigIn"
-      navigate(`/`); // Corrected from "navigete"
+      dispatch(sigIn(data?.payload.accessToken));
+      navigete(`/`);
     }
-  }, [isSuccess, data]); // Added "data" as a dependency
-
+  }, [isSuccess]);
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
   return (
     <div>
+      {" "}
       <Form
         name="basic"
         layout="vertical"
@@ -72,6 +69,9 @@ const Signin = () => {
             Sign in
           </Button>
         </Form.Item>
+        <Text>
+          Don't heve an account? <Link to="/auth/sign-up">Sign Up</Link>
+        </Text>
       </Form>
     </div>
   );

@@ -1,4 +1,4 @@
-import { fetchBaseQuery, retry, createApi } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
 import { signOut } from "../slices/authSlice";
 
 const baseQuery = async (args, api, extraOptions) => {
@@ -20,6 +20,7 @@ const baseQuery = async (args, api, extraOptions) => {
   if (response.error) {
     const { status } = response.error;
     if (status === 401 || status === 403) {
+      console.error("Unauthorized access - Redirecting to login...");
       dispatch(signOut());
     }
   }
@@ -27,7 +28,7 @@ const baseQuery = async (args, api, extraOptions) => {
   return response;
 };
 
-const fetchBaseQueryWithRetry = retry(baseQuery, { maxRetries: 3 });
+const fetchBaseQueryWithRetry = retry(baseQuery, { maxRetries: 1 });
 
 export const api = createApi({
   reducerPath: "api",

@@ -7,6 +7,8 @@ const Auth = lazy(() => import("./auth/Auth"));
 const Otp = lazy(() => import("./auth/otp/otp"));
 const Signup = lazy(() => import("./auth/sign-up/signUp"));
 const Signin = lazy(() => import("./auth/sign-in/signIn"));
+const Notification = lazy(() => import("./notification/Notification"));
+const Profile = lazy(() => import("./auth/profile/Profile"));
 
 const RouteController = () => {
   return useRoutes([
@@ -51,6 +53,22 @@ const RouteController = () => {
           ),
         },
       ],
+    },
+    {
+      path: "/notifications",
+      element: (
+        <Suspense>
+          <Notification />
+        </Suspense>
+      ),
+    },
+    {
+      path: "/profile",
+      element: (
+        <Suspense>
+          <Profile />
+        </Suspense>
+      ),
     },
   ]);
 };

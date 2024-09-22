@@ -1,12 +1,16 @@
 import { api } from "../api/index";
+
 const authApi = api.injectEndpoints({
   endpoints: (build) => ({
     checkUserQuery: build.query({
       query: () => ({
         url: "/auth/profile",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token") || null}`,
+        },
       }),
     }),
-    singInRequest: build.mutation({
+    signInRequest: build.mutation({
       query: (body) => ({
         url: "/auth/sign-in",
         method: "POST",
@@ -29,5 +33,6 @@ const authApi = api.injectEndpoints({
     }),
   }),
 });
-export const { useSingInRequestMutation, useSignUpRequestMutation, useOtpVerifyRequestMutation, useCheckUserQueryQuery } =
+
+export const { useSignInRequestMutation, useSignUpRequestMutation, useOtpVerifyRequestMutation, useCheckUserQueryQuery } =
   authApi;

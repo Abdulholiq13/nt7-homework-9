@@ -15,14 +15,40 @@ const baseQuery = async (args, api, extraOptions) => {
     },
   });
 
-  const response = await rawBaseQuery(args, api, extraOptions);
+  let response = await rawBaseQuery(args, api, extraOptions);
 
-  if (response.error) {
-    const { status } = response.error;
-    if (status === 401 || status === 403) {
-      console.error("Unauthorized access - Redirecting to login...");
+  if (response.error && response.error.status === 401) {
+    const refreshToken = localStorage.getItem("refreshToken");
+
+    if (refreshToken) {
+      const refreshResponse = await rawBaseQuery(
+        {
+          url: "/auth/refresh-token",
+          method: "POST",
+          body: { refreshToken },
+        },
+        api,
+        extraOptions
+      );
+
+      if (refreshResponse?.data) {
+        localStorage.setItem("token", refreshResponse.data.accessToken);
+        if (refreshResponse.data.refreshToken) {
+          localStorage.setItem("refreshToken", refreshResponse.data.refreshToken);
+        }
+        response = await rawBaseQuery(args, api, extraOptions);
+      } else {
+        console.error("Failed to refresh token.");
+        dispatch(signOut());
+      }
+    } else {
       dispatch(signOut());
     }
+  }
+
+  if (response.error && response.error.status === 403) {
+    console.error("Forbidden access - You do not have permission to access this resource.");
+    dispatch(signOut());
   }
 
   return response;

@@ -32,10 +32,11 @@ const baseQuery = async (args, api, extraOptions) => {
       );
 
       if (refreshResponse?.data) {
-        localStorage.setItem("token", refreshResponse.data.accessToken);
+        localStorage.setItem("token", JSON.stringify(refreshResponse.data.accessToken));
         if (refreshResponse.data.refreshToken) {
-          localStorage.setItem("refreshToken", refreshResponse.data.refreshToken);
+          localStorage.setItem("refreshToken", JSON.stringify(refreshResponse.data.refreshToken));
         }
+
         response = await rawBaseQuery(args, api, extraOptions);
       } else {
         console.error("Failed to refresh token.");

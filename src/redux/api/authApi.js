@@ -16,6 +16,16 @@ const authApi = api.injectEndpoints({
         method: "POST",
         body,
       }),
+
+      async onQueryStarted(args, { queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          console.log("Response data:", data);
+          localStorage.setItem("token", data?.payload?.accessToken || "");
+        } catch (error) {
+          console.error("Failed to save token:", error);
+        }
+      },
     }),
     signUpRequest: build.mutation({
       query: (body) => ({
@@ -23,6 +33,15 @@ const authApi = api.injectEndpoints({
         method: "POST",
         body,
       }),
+      async onQueryStarted(args, { queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          console.log("Response data:", data);
+          localStorage.setItem("token", data?.payload?.accessToken || "");
+        } catch (error) {
+          console.error("Failed to save token:", error);
+        }
+      },
     }),
     otpVerifyRequest: build.mutation({
       query: (body) => ({

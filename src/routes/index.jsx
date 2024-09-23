@@ -1,24 +1,67 @@
 import React, { lazy } from "react";
 import { useRoutes } from "react-router-dom";
-import Suspense from "../utils/index";
+import Suspense from "../utils";
+import Header from "../components/header/header";
+import Footer from "../components/footer/footer";
+import SingleProducts from "./home/singleProducts/SingleProducts";
+import Cart from "./home/cart/Cart";
+import Profile from "./profile/Profile";
+import AddCard from "./profile/AddCart";
 
 const Home = lazy(() => import("./home/Home"));
 const Auth = lazy(() => import("./auth/Auth"));
-const Otp = lazy(() => import("./auth/otp/otp"));
-const Signup = lazy(() => import("./auth/sign-up/signUp"));
-const Signin = lazy(() => import("./auth/sign-in/signIn"));
-const Notification = lazy(() => import("./notification/Notification"));
-const Profile = lazy(() => import("./auth/profile/Profile"));
+const Otp = lazy(() => import("./auth/otp/Otp"));
+const Signup = lazy(() => import("./auth/sign-up/signup"));
+const Signin = lazy(() => import("./auth/sign-in/signin"));
+const Search = lazy(() => import("./search/Search"));
 
 const RouteController = () => {
   return useRoutes([
     {
-      path: "/",
       element: (
         <Suspense>
-          <Home />
+          <>
+            <Header />
+            <Footer />
+          </>
         </Suspense>
       ),
+
+      children: [
+        {
+          path: "/",
+          element: (
+            <Suspense>
+              <Home />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/search",
+          element: (
+            <Suspense>
+              <Search />
+            </Suspense>
+          ),
+        },
+        {
+          path: "products/:id",
+          element: (
+            <Suspense>
+              <SingleProducts />
+            </Suspense>
+          ),
+        },
+
+        {
+          path: "/cart",
+          element: (
+            <Suspense>
+              <Cart />
+            </Suspense>
+          ),
+        },
+      ],
     },
     {
       path: "/auth",
@@ -55,20 +98,22 @@ const RouteController = () => {
       ],
     },
     {
-      path: "/notifications",
-      element: (
-        <Suspense>
-          <Notification />
-        </Suspense>
-      ),
-    },
-    {
-      path: "/profile",
+      path: "profile",
       element: (
         <Suspense>
           <Profile />
         </Suspense>
       ),
+      children: [
+        {
+          path: "/profile/add",
+          element: (
+            <Suspense>
+              <AddCard />
+            </Suspense>
+          ),
+        },
+      ],
     },
   ]);
 };

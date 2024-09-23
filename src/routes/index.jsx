@@ -1,8 +1,8 @@
-import React, { lazy } from "react";
+import { lazy } from "react";
 import { useRoutes } from "react-router-dom";
 import Suspense from "../utils";
-import Header from "../components/header/header";
-import Footer from "../components/footer/footer";
+import Header from "../components/header/Header";
+import Footer from "../components/footer/Footer";
 import SingleProducts from "./home/singleProducts/SingleProducts";
 import Cart from "./home/cart/Cart";
 import Profile from "./profile/Profile";

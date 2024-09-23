@@ -11,8 +11,8 @@ import AddCard from "./profile/AddCart";
 const Home = lazy(() => import("./home/Home"));
 const Auth = lazy(() => import("./auth/Auth"));
 const Otp = lazy(() => import("./auth/otp/Otp"));
-const Signup = lazy(() => import("./auth/sign-up/signup"));
-const Signin = lazy(() => import("./auth/sign-in/signin"));
+const Signup = lazy(() => import("./auth/sign-up/Signup"));
+const Signin = lazy(() => import("./auth/sign-in/Signin"));
 const Search = lazy(() => import("./search/Search"));
 
 const RouteController = () => {

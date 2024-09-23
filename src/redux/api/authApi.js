@@ -6,7 +6,7 @@ const authApi = api.injectEndpoints({
       query: () => ({
         url: "/auth/profile",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token") || null}`,
+          Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
         },
       }),
     }),
